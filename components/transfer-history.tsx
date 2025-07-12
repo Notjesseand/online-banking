@@ -61,11 +61,11 @@ export const TransferHistory = ({
   }, [filterByUserId]);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto text-xs">
       <h3 className="text-lg font-semibold text-white mb-4">
         Recent Transfers
       </h3>
-      <table className="w-full text-sm text-left text-gray-300">
+      <table className="w-full text-sm lg:text-xs text-left text-gray-300">
         <thead className="text-xs uppercase bg-gray-800 text-gray-400">
           <tr>
             <th className="px-4 py-3">Date</th>

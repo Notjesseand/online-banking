@@ -155,11 +155,11 @@ const data = {
     //   url: "/settings",
     //   icon: SettingsIcon,
     // },
-    {
-      title: "Get Help",
-      url: "/support",
-      icon: HelpCircleIcon,
-    },
+    // {
+    //   title: "Get Help",
+    //   url: "/support",
+    //   icon: HelpCircleIcon,
+    // },
     // {
     //   title: "Search",
     //   url: "#",
@@ -193,11 +193,11 @@ const data = {
     //   url: "/referrals",
     //   icon: UsersRound,
     // },
-    {
-      name: "Withdrawals",
-      url: "/withdrawals",
-      icon: Trophy,
-    },
+    // {
+    //   name: "Withdrawals",
+    //   url: "/withdrawals",
+    //   icon: Trophy,
+    // },
     {
       name: "How it works",
       url: "/info",

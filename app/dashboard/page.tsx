@@ -67,18 +67,18 @@ export default function Page() {
         />
         <SidebarInset>
           <SiteHeader />
-          <div className="flex flex-1 flex-col p-4 md:p-6 text-white font-montserrat relative z-50">
+          <div className="flex flex-1 flex-col p-4 md:p-6 text-white font-montserrat relative z-50 ">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-[13px]">
               {/* Wallet Balance */}
               <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <CardHeader className="flex flex-row items-center gap-4 p-6">
                   <HiOutlineWallet className="text-3xl text-blue-400" />
-                  <CardTitle className="text-2xl font-bold text-white">
+                  <CardTitle className="text-xl font-bold text-white font-montserrat">
                     Wallet Balance
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
-                  <p className="text-4xl font-extrabold tabular-nums text-green-400">
+                  <p className="text-3xl font-extrabold tabular-nums font-montserrat text-green-400">
                     $
                     {walletBalance !== null
                       ? walletBalance.toLocaleString("en-US", {
@@ -87,7 +87,7 @@ export default function Page() {
                         })
                       : "0.00"}
                   </p>
-                  <p className="text-sm font-medium text-gray-400 mt-2">
+                  <p className="text-sm lg:text-xs  font-medium text-gray-400 mt-2">
                     Available for transfers
                   </p>
                 </CardContent>
