@@ -77,7 +77,7 @@ export default function Page() {
                     Wallet Balance
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <p className="text-3xl font-extrabold tabular-nums font-montserrat text-green-400">
                     $
                     {walletBalance !== null
@@ -98,7 +98,7 @@ export default function Page() {
                 <h2 className="text-2xl font-bold text-white p-6 border-b border-gray-700">
                   Send Money
                 </h2>
-                <div className="p-6">
+                <div className="p-2 sm:p-6">
                   <TransferForm />
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function Page() {
                 <h2 className="text-2xl font-bold text-white p-6 border-b border-gray-700">
                   Transfer History
                 </h2>
-                <div className="p-6">
+                <div className="p-2 sm:p-6">
                   <TransferHistory filterByUserId={userId as string} />
                 </div>
               </div>
