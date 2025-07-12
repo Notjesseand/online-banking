@@ -222,8 +222,8 @@ export default function HomePage() {
             Start Transacting with NexxaPay
           </h2>
           <p className="text-base sm:text-lg text-center text-white mt-4 sm:w-2/3 mx-auto leading-relaxed">
-            We've simplified the process to help you start transacting with ease
-            and confidence.
+            We&apos;ve simplified the process to help you start transacting with
+            ease and confidence.
           </p>
 
           {/* Toggle Buttons */}
