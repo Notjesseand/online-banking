@@ -36,11 +36,15 @@ export function SiteHeader() {
         />
         <div className="w-full flex justify-between items-center sm:pr-1">
           <div className="flex justify-between w-full pr-4">
-            <img
+            {/* <img
               src="/logo-text.png"
               alt=""
               className="max-w-24 object-contain hidden sm:flex -ml-2  "
-            />
+            /> */}
+            <p className="font-2xl font-montserrat flex items-center font-semibold">
+              Nexxapay
+            </p>
+
             <h1 className="text-base flex">
               <Deposit />
             </h1>

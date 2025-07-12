@@ -17,10 +17,13 @@ import "@/styles/star-background.css";
 export default function Page() {
   const loading = useAuthRedirect();
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) return;
+
+    setUserId(user.uid); // ✅ set userId for history component
 
     const unsubscribe = onSnapshot(
       doc(db, "users", user.uid),
@@ -65,7 +68,7 @@ export default function Page() {
         <SidebarInset>
           <SiteHeader />
           <div className="flex flex-1 flex-col p-4 md:p-6 text-white font-montserrat relative z-50">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-[13px]">
               {/* Wallet Balance */}
               <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <CardHeader className="flex flex-row items-center gap-4 p-6">
@@ -106,7 +109,7 @@ export default function Page() {
                   Transfer History
                 </h2>
                 <div className="p-6">
-                  <TransferHistory />
+                  <TransferHistory filterByUserId={userId as string} />
                 </div>
               </div>
             </div>

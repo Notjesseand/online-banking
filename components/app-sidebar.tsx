@@ -86,14 +86,14 @@ const data = {
     },
 
     {
-      title: "Markets",
-      url: "/markets",
-      icon: LineChart,
-    },
-    {
       title: "Headlines",
       url: "/articles",
       icon: Newspaper,
+    },
+    {
+      title: "Markets",
+      url: "/markets",
+      icon: LineChart,
     },
     // {
     //   title: "Messages",

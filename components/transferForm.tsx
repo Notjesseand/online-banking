@@ -171,7 +171,7 @@ export const TransferForm = () => {
             type="text"
             value={recipientName}
             readOnly
-            className="w-full rounded-lg bg-gray-700 text-white border bg-transparent cursor-not-allowed"
+            className="w-full rounded-lg bg-gray-700 text-white border-0 bg-transparent cursor-not-allowed"
             placeholder="fetching..."
           />
         </div>
