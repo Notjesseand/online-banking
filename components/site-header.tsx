@@ -41,7 +41,7 @@ export function SiteHeader() {
               alt=""
               className="max-w-24 object-contain hidden sm:flex -ml-2  "
             /> */}
-            <p className="font-2xl font-montserrat flex items-center font-semibold">
+            <p className="font-2xl font-montserrat items-center font-semibold hidden sm:flex">
               Nexxapay
             </p>
 
