@@ -126,7 +126,8 @@ export default function AdminUserDetailPage() {
 
       await addDoc(collection(db, "transferLogs"), {
         recipientId: id,
-        recipientName: depositName,
+        recipientName: "You",
+        details: depositName,
         amount: amountNum,
         status: "Completed",
         timestamp: serverTimestamp(),
@@ -232,7 +233,7 @@ export default function AdminUserDetailPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <Input
-                placeholder="Name for deposit (e.g. Admin or Reason)"
+                placeholder="Details (e.g. Admin or Reason)"
                 value={depositName}
                 onChange={(e) => setDepositName(e.target.value)}
               />

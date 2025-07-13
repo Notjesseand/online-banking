@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CiWallet } from "react-icons/ci";
 import { HiOutlineWallet } from "react-icons/hi2";
 import "@/styles/star-background.css";
+import { ProfileCompleteness } from "@/components/dashboard/profile-completeness";
 
 export default function Page() {
   const loading = useAuthRedirect();
@@ -114,6 +115,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
+            <ProfileCompleteness userId={userId as string} isAdminView />
           </div>
         </SidebarInset>
       </SidebarProvider>
