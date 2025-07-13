@@ -49,9 +49,9 @@ export function NavMain({
           <SidebarMenuItem className="flex items-center gap-2 bg-black rounded hover:bg-black text-white">
             <SidebarMenuButton
               tooltip="Quick Create"
-              className="border-0 hover:bg-black px-0"
+              className="border-0 hover:bg-black px-0 hidden"
             >
-              <WalletButton />
+              {/* <WalletButton /> */}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -45,7 +45,7 @@ export default function WalletButton() {
   )?.icon;
 
   return walletProvider ? (
-    <div className="flex items-center space-x-2 bg-black text-white  py-2 w-full justify-center rounded">
+    <div className="hidden items-center space-x-2 bg-black text-white  py-2 w-full justify-center rounded">
       {walletIcon && (
         <Image
           src={walletIcon}
@@ -60,7 +60,7 @@ export default function WalletButton() {
   ) : (
     <Link
       href="/connect-wallet"
-      className="font-montserrat text-sm sm:text-xs bg-black text-white text-center w-full px-4 py-2 rounded"
+      className="font-montserrat text-sm sm:text-xs bg-black text-white text-center w-full px-4 py-2 rounded hidden"
     >
       Connect wallet
     </Link>
