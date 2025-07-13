@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "@/lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CiWallet } from "react-icons/ci";
 import { HiOutlineWallet } from "react-icons/hi2";
 import "@/styles/star-background.css";
 
@@ -72,7 +73,7 @@ export default function Page() {
               {/* Wallet Balance */}
               <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <CardHeader className="flex flex-row items-center gap-4 p-6">
-                  <HiOutlineWallet className="text-3xl text-blue-400" />
+                  <CiWallet className="text-3xl text-blue-400" />
                   <CardTitle className="text-xl font-bold text-white font-montserrat">
                     Wallet Balance
                   </CardTitle>
