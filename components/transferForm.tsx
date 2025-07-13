@@ -20,6 +20,7 @@ export const TransferForm = () => {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
+  const [details, setDetails] = useState("");
 
   useEffect(() => {
     const fetchRecipientName = async () => {
@@ -119,6 +120,7 @@ export const TransferForm = () => {
         amount: amountNum,
         status: "Completed",
         timestamp: serverTimestamp(),
+        details: details,
       });
 
       // Update wallet balance
@@ -190,6 +192,19 @@ export const TransferForm = () => {
           max={walletBalance || undefined}
           className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
           placeholder="Enter amount"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-gray-300 mb-1">
+          Notes / Details (Optional)
+        </label>
+        <input
+          type="text"
+          value={details}
+          onChange={(e) => setDetails(e.target.value)}
+          className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white"
+          placeholder="Enter a message or note"
         />
       </div>
 

@@ -7,18 +7,28 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Spinner from "@/components/spinner";
 import { auth, db } from "@/lib/firebase";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  or,
+  getDocs,
+} from "firebase/firestore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 
-// Transaction type
+// Unified Transaction type
 interface Transaction {
-  recipientId: string;
-  recipientName: string;
+  id: string;
+  senderId?: string;
+  recipientId?: string;
+  recipientName?: string;
   amount: number;
   status: string;
-  timestamp: Date | string;
-  [key: string]: any;
+  timestamp: Date;
+  type: "transfer" | "deposit";
+  details?: string; // 👈 Add this
 }
 
 export default function Page() {
@@ -30,43 +40,66 @@ export default function Page() {
     const user = auth.currentUser;
     if (!user) return;
 
-    const q = query(
+    const senderQuery = query(
       collection(db, "transferLogs"),
-      where("senderId", "==", user.uid) // Fetch only this user's sent transfers
+      where("senderId", "==", user.uid)
     );
 
-    const unsubscribe = onSnapshot(
-      q,
-      (snap) => {
-        const data = snap.docs.map((doc) => {
-          const docData = doc.data() as Transaction; // Cast to Transaction type
-          return {
-            id: doc.id,
-            ...docData,
-            timestamp:
-              // @ts-ignore
-              docData.timestamp?.toDate?.() ?? new Date(docData.timestamp),
-          } as Transaction;
-        });
-
-        const sorted = data.sort(
-          (a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        );
-
-        const total = sorted
-          .filter((tx) => tx.status?.toLowerCase?.() === "completed")
-          .reduce((sum, tx) => sum + (tx.amount || 0), 0);
-
-        setTransactions(sorted);
-        setTotalTransfers(total);
-      },
-      (error: Error) => {
-        console.error("Error fetching transfer history:", error);
-      }
+    const depositQuery = query(
+      collection(db, "transferLogs"),
+      where("recipientId", "==", user.uid),
+      where("type", "==", "deposit")
     );
 
-    return () => unsubscribe();
+    const unsubTransfers = onSnapshot(senderQuery, (snap) => {
+      const transfers = snap.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          timestamp: data.timestamp?.toDate?.() ?? new Date(),
+          type: "transfer",
+        } as Transaction;
+      });
+
+      const confirmedTransfers = transfers.filter(
+        (tx) => tx.status?.toLowerCase?.() === "completed"
+      );
+
+      const total = confirmedTransfers.reduce((sum, tx) => sum + tx.amount, 0);
+
+      setTotalTransfers(total);
+
+      // We'll merge with deposits later
+      setTransactions((prev) =>
+        [...transfers, ...prev.filter((tx) => tx.type === "deposit")].sort(
+          (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+        )
+      );
+    });
+
+    const unsubDeposits = onSnapshot(depositQuery, (snap) => {
+      const deposits = snap.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          timestamp: data.timestamp?.toDate?.() ?? new Date(),
+          type: "deposit",
+        } as Transaction;
+      });
+
+      setTransactions((prev) =>
+        [...deposits, ...prev.filter((tx) => tx.type === "transfer")].sort(
+          (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+        )
+      );
+    });
+
+    return () => {
+      unsubTransfers();
+      unsubDeposits();
+    };
   }, []);
 
   if (loading) {
@@ -83,10 +116,10 @@ export default function Page() {
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-col gap-4 p-4 md:p-6 font-montserrat">
-          <h1 className="text-2xl font-semibold">Transfer History</h1>
+          <h1 className="text-2xl font-semibold">Transaction History</h1>
 
           {/* Total Transfers Card */}
-          <Card className="transform transition-transform scale-95 hover:scale-[98%] bg-gradient-to-t from-green-500/10 to-green-100/10 dark:from-green-700/10 dark:to-card border-2 border-green-300 dark:border-green-600 shadow-md hover:shadow-lg animate-in fade-in duration-500">
+          <Card className="bg-green-100/10 border-2 border-green-300 dark:border-green-600 shadow-md hover:shadow-lg">
             <CardHeader className="flex flex-row items-center gap-3">
               <HiOutlineCurrencyDollar className="text-2xl text-green-600 dark:text-green-400" />
               <CardTitle className="text-lg font-semibold text-green-600 dark:text-green-300">
@@ -107,25 +140,30 @@ export default function Page() {
             </CardContent>
           </Card>
 
-          {/* Transaction List */}
+          {/* Transactions */}
           {transactions.length === 0 ? (
             <p className="text-muted-foreground">No transactions found.</p>
           ) : (
             transactions.map((tx, idx) => (
               <Card
                 key={idx}
-                className="p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 transition-all duration-200 hover:shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
               >
-                <div className="flex items-center gap-3">
-                  <div>
-                    <p className="font-medium capitalize">Transfer</p>
+                <div>
+                  <p className="font-medium capitalize">{tx.type}</p>
+                  {tx.recipientName && (
                     <p className="text-sm text-muted-foreground">
-                      {tx.recipientName} (ID: {tx.recipientId})
+                      {tx.recipientName}
                     </p>
-                  </div>
+                  )}
+                  {tx.details && (
+                    <p className="text-sm italic text-gray-500 dark:text-gray-400 mt-1">
+                      {tx.details}
+                    </p>
+                  )}
                 </div>
                 <div className="text-right">
-                  <p className="text-lg font-semibold">
+                  <p className="text-lg font-semibold text-green-500">
                     ${tx.amount.toFixed(2)}
                   </p>
                   <p className="text-sm text-muted-foreground">{tx.status}</p>
