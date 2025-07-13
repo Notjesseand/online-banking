@@ -105,7 +105,7 @@ export default function Page() {
               </div>
 
               {/* Transfer History */}
-              <div className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 lg:col-span-2">
+              <div className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 lg:col-span-3">
                 <h2 className="text-2xl font-bold text-white p-6 border-b border-gray-700">
                   Transfer History
                 </h2>

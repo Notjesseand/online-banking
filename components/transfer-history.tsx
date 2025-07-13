@@ -72,6 +72,7 @@ export const TransferHistory = ({
             <th className="px-4 py-3">Amount</th>
             <th className="px-4 py-3">Recipient</th>
             <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3">Fees</th>
           </tr>
         </thead>
         <tbody>
@@ -106,6 +107,7 @@ export const TransferHistory = ({
                     {transfer.status}
                   </span>
                 </td>
+                <td className="px-5">$0</td>
               </tr>
             ))
           ) : (
