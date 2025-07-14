@@ -73,14 +73,14 @@ export default function Page() {
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Wallet Balance */}
               <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 pb-6 md:pb-0 px-2">
-                <CardHeader className="flex flex-row items-center gap-2 sm:gap-4 p-3 sm:p-4">
-                  <CiWallet className="text-xl sm:text-2xl md:text-3xl text-blue-400" />
+                <CardHeader className="flex flex-row items-center  gap-2 sm:gap-4 p-3 sm:p-4">
+                  <CiWallet className="text-xl sm:text-2xl md:text-3xl text-blue-400 mt-1" />
                   <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold text-white font-montserrat">
                     Wallet Balance
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-2 sm:p-4">
-                  <p className="text-xl sm:text-2xl md:text-3xl font-extrabold tabular-nums font-montserrat text-green-400">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold font-mono tabular-nums text-green-400">
                     $
                     {walletBalance !== null
                       ? walletBalance.toLocaleString("en-US", {
@@ -88,9 +88,6 @@ export default function Page() {
                           maximumFractionDigits: 2,
                         })
                       : "0.00"}
-                  </p>
-                  <p className="text-xs sm:text-sm md:text-base font-medium text-gray-400 mt-1 sm:mt-2">
-                    Available for transfers
                   </p>
                 </CardContent>
               </Card>
