@@ -146,7 +146,7 @@ export const TransferForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 bg-gray-900 p-2 sm:p-6 rounded-xl border border-gray-800 shadow-lg text-sm sm:text-xs"
+      className="space-y-6 p-2 sm:p-6 rounded-xl border border-gray-800 shadow-lg text-sm sm:text-xs"
     >
       {error && <p className="text-red-400 text-sm -mt-2">{error}</p>}
 

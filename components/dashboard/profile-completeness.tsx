@@ -187,7 +187,7 @@ export const ProfileCompleteness = ({ userId, isAdminView = false }: Props) => {
   const completionPercentage = (completedCount / profileItems.length) * 100;
 
   return (
-    <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 text-sm sm:text-base text-white mt-4 font-montserrat">
+    <div className="bg-transparent backdrop-blur-0 border border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 text-sm sm:text-base text-white mt-4 font-montserrat">
       <h3 className="text-lg sm:text-xl lg:text-2xl font-bold">
         Profile Completeness
       </h3>

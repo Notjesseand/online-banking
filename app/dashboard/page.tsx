@@ -72,7 +72,7 @@ export default function Page() {
           <div className="flex flex-1 flex-col p-2 sm:p-4 md:p-6 text-white font-montserrat relative z-50">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Wallet Balance */}
-              <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 pb-6 md:pb-0 px-2">
+              <Card className="bg-gray-900/60 backdrop-blur-xs  border border-gray-700 rounded-xl shadowl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 pb-6 md:pb-0 px-2">
                 <CardHeader className="flex flex-row items-center  gap-2 sm:gap-4 p-3 sm:p-4">
                   <CiWallet className="text-xl sm:text-2xl md:text-3xl text-blue-400 mt-1" />
                   <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold text-white font-montserrat">
@@ -93,7 +93,7 @@ export default function Page() {
               </Card>
 
               {/* Transfer Form */}
-              <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-2 lg:col-span-2">
+              <Card className="bg-gray-900/60 backdrop-blur-0 border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-2 lg:col-span-2">
                 <CardHeader className="p-3 sm:p-4">
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white border-b border-gray-700 pb-2">
                     Send Money
@@ -105,7 +105,7 @@ export default function Page() {
               </Card>
 
               {/* Profile Completeness */}
-              <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-1 lg:col-span-3">
+              <Card className="bg-gray-900/60 backdrop-blur-0 border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-1 lg:col-span-3">
                 <CardContent className="p-2 sm:p-4">
                   <ProfileCompleteness
                     userId={userId as string}
@@ -115,7 +115,7 @@ export default function Page() {
               </Card>
 
               {/* Transfer History */}
-              <Card className="bg-gray-900/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-2 lg:col-span-3">
+              <Card className="bg-gray-900/70 backdrop-blur-0 border border-gray-700 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 col-span-1 md:col-span-2 lg:col-span-3">
                 <CardHeader className="p-3 sm:p-4">
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white border-b border-gray-700 pb-2">
                     Transfer History
