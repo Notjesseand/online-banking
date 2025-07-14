@@ -1,5 +1,4 @@
 //app/admin/dashboard/[id]/page.tsx
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import {
   addDoc,
   collection,
   serverTimestamp,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { AppSidebar } from "../../components/app-sidebar";
@@ -41,11 +41,11 @@ export default function AdminUserDetailPage() {
   const [loading, setLoading] = useState(true);
   const [editingBalance, setEditingBalance] = useState(false);
   const [newBalance, setNewBalance] = useState<string>("");
-
   const [depositName, setDepositName] = useState("");
   const [depositAmount, setDepositAmount] = useState("");
   const [depositLoading, setDepositLoading] = useState(false);
   const [balanceLoading, setBalanceLoading] = useState(false);
+  const [generatingHistory, setGeneratingHistory] = useState(false); // New state for history generation
 
   useEffect(() => {
     if (!id) return;
@@ -138,7 +138,6 @@ export default function AdminUserDetailPage() {
       setDepositAmount("");
       setDepositName("");
 
-      // Refresh user data
       const updatedSnap = await getDoc(userRef);
       setUser(updatedSnap.data() as UserData);
     } catch (error) {
@@ -146,6 +145,67 @@ export default function AdminUserDetailPage() {
       alert("Deposit failed. Try again.");
     } finally {
       setDepositLoading(false);
+    }
+  };
+
+  // Function to generate mock transaction history
+  const generateMockHistory = async () => {
+    if (!id || generatingHistory) return;
+
+    setGeneratingHistory(true);
+
+    try {
+      const startDate = new Date("2018-01-01").getTime();
+      const endDate = new Date().getTime(); // Current date: July 14, 2025, 01:30 PM WAT
+      const transactionCount = 50; // Generate 50 transactions
+
+      for (let i = 0; i < transactionCount; i++) {
+        const isDeposit = Math.random() > 0.5; // 50% chance for deposit or transfer
+        const timestamp = new Date(
+          startDate + Math.random() * (endDate - startDate)
+        );
+        const amount = Math.floor(Math.random() * 5000) + 100; // Random amount between 100 and 5100
+        const status = "Completed"; // All transactions set to Completed
+        const details = isDeposit
+          ? `Bank Transfer ${Math.random().toString(36).substring(7)}`
+          : `Transfer ${Math.random().toString(36).substring(7)}`;
+
+        if (isDeposit) {
+          await addDoc(collection(db, "transferLogs"), {
+            recipientId: id,
+            recipientName: "You",
+            details,
+            amount,
+            status,
+            timestamp: Timestamp.fromDate(timestamp),
+            type: "deposit",
+          });
+        } else {
+          const recipientId = Math.floor(
+            1000000000 + Math.random() * 9000000000
+          ).toString(); // Random 10-digit number
+          const recipientName = Math.floor(
+            1000000000 + Math.random() * 9000000000
+          ).toString(); // Random 10-digit number
+          await addDoc(collection(db, "transferLogs"), {
+            senderId: id,
+            recipientId,
+            recipientName,
+            details,
+            amount,
+            status,
+            timestamp: Timestamp.fromDate(timestamp),
+            type: "transfer",
+          });
+        }
+      }
+
+      alert("Mock transaction history generated successfully!");
+    } catch (error) {
+      console.error("Error generating mock history:", error);
+      alert("Failed to generate mock history. Try again.");
+    } finally {
+      setGeneratingHistory(false);
     }
   };
 
@@ -226,7 +286,6 @@ export default function AdminUserDetailPage() {
             </CardContent>
           </Card>
 
-          {/* ✅ Admin Deposit Section */}
           <Card className="text-sm">
             <CardHeader>
               <CardTitle className="text-sm">Make Deposit</CardTitle>
@@ -249,10 +308,17 @@ export default function AdminUserDetailPage() {
             </CardContent>
           </Card>
 
-          {/* ✅ Transfer History for this user only */}
           <Card className="text-sm">
-            <CardHeader>
+            <CardHeader className="flex justify-between items-center">
               <CardTitle className="text-sm">Transfer History</CardTitle>
+              <Button
+                size="sm"
+                onClick={generateMockHistory}
+                disabled={generatingHistory}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {generatingHistory ? "Generating..." : "Generate History"}
+              </Button>
             </CardHeader>
             <CardContent>
               <TransferHistory filterByUserId={id as string} />
