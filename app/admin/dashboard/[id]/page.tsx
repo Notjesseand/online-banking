@@ -11,6 +11,7 @@ import {
   collection,
   serverTimestamp,
   Timestamp,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { AppSidebar } from "../../components/app-sidebar";
@@ -33,6 +34,13 @@ interface UserData {
   pendingStatus?: boolean;
 }
 
+interface Recipient {
+  id: string;
+  name: string;
+  accountNumber: string;
+  idNumber: string;
+}
+
 export default function AdminUserDetailPage() {
   const { id } = useParams();
   const router = useRouter();
@@ -45,7 +53,8 @@ export default function AdminUserDetailPage() {
   const [depositAmount, setDepositAmount] = useState("");
   const [depositLoading, setDepositLoading] = useState(false);
   const [balanceLoading, setBalanceLoading] = useState(false);
-  const [generatingHistory, setGeneratingHistory] = useState(false); // New state for history generation
+  const [generatingHistory, setGeneratingHistory] = useState(false);
+  const [recipients, setRecipients] = useState<Recipient[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -63,7 +72,20 @@ export default function AdminUserDetailPage() {
       setLoading(false);
     };
 
+    const fetchRecipients = async () => {
+      const recipientsCollection = collection(db, "recipients");
+      const snapshot = await getDocs(recipientsCollection);
+      const recipientData = snapshot.docs.map((doc) => ({
+        id: doc.data().id,
+        name: doc.data().name,
+        accountNumber: doc.data().accountNumber,
+        idNumber: doc.data().idNumber,
+      }));
+      setRecipients(recipientData);
+    };
+
     fetchUser();
+    fetchRecipients();
   }, [id, router]);
 
   const handleEditBalance = () => {
@@ -148,54 +170,59 @@ export default function AdminUserDetailPage() {
     }
   };
 
-  // Function to generate mock transaction history
+  // Function to generate mock transaction history with 80% transfers, 20% deposits
   const generateMockHistory = async () => {
-    if (!id || generatingHistory) return;
+    if (!id || generatingHistory || recipients.length === 0) return;
 
     setGeneratingHistory(true);
 
     try {
       const startDate = new Date("2018-01-01").getTime();
-      const endDate = new Date().getTime(); // Current date: July 14, 2025, 01:30 PM WAT
+      const endDate = new Date().getTime(); // Current date: July 16, 2025, 10:17 AM WAT
       const transactionCount = 50; // Generate 50 transactions
 
       for (let i = 0; i < transactionCount; i++) {
-        const isDeposit = Math.random() > 0.5; // 50% chance for deposit or transfer
         const timestamp = new Date(
           startDate + Math.random() * (endDate - startDate)
         );
         const amount = Math.floor(Math.random() * 5000) + 100; // Random amount between 100 and 5100
-        const status = "Completed"; // All transactions set to Completed
-        const details = isDeposit
-          ? `Bank Transfer ${Math.random().toString(36).substring(7)}`
-          : `Transfer ${Math.random().toString(36).substring(7)}`;
+        const status = "Completed";
+        const details = `Transaction ${Math.random().toString(36).substring(7)}`;
 
-        if (isDeposit) {
-          await addDoc(collection(db, "transferLogs"), {
-            recipientId: id,
-            recipientName: "You",
-            details,
-            amount,
-            status,
-            timestamp: Timestamp.fromDate(timestamp),
-            type: "deposit",
-          });
-        } else {
-          const recipientId = Math.floor(
-            1000000000 + Math.random() * 9000000000
-          ).toString(); // Random 10-digit number
-          const recipientName = Math.floor(
-            1000000000 + Math.random() * 9000000000
-          ).toString(); // Random 10-digit number
+        // Randomly select a recipient or sender from recipients (excluding the current user if possible)
+        const otherRecipients = recipients.filter((r) => r.id !== id);
+        const selectedEntity =
+          otherRecipients[Math.floor(Math.random() * otherRecipients.length)] ||
+          recipients[Math.floor(Math.random() * recipients.length)];
+
+        // 80% chance for transfer (random value <= 0.8), 20% for deposit (random value > 0.8)
+        if (Math.random() <= 0.8) {
+          // Transfer: Current user as sender
           await addDoc(collection(db, "transferLogs"), {
             senderId: id,
-            recipientId,
-            recipientName,
+            senderName:
+              `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim() ||
+              "Unknown User",
+            recipientId: selectedEntity.id,
+            recipientName: selectedEntity.name,
             details,
             amount,
             status,
             timestamp: Timestamp.fromDate(timestamp),
             type: "transfer",
+          });
+        } else {
+          // Deposit: Current user as recipient
+          await addDoc(collection(db, "transferLogs"), {
+            recipientId: id,
+            recipientName: "You",
+            senderId: selectedEntity.id,
+            senderName: selectedEntity.name,
+            details,
+            amount,
+            status,
+            timestamp: Timestamp.fromDate(timestamp),
+            type: "deposit",
           });
         }
       }
