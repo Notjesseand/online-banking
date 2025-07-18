@@ -39,6 +39,7 @@ import {
   Newspaper,
   BadgeInfo,
 } from "lucide-react";
+import { CiLock } from "react-icons/ci";
 
 import { History } from "lucide-react";
 import { NavDocuments } from "@/components/nav-documents";
@@ -60,6 +61,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import { useEffect, useState } from "react";
+import { FaLock } from "react-icons/fa6";
 
 const data = {
   user: {
@@ -167,11 +169,11 @@ const data = {
     // },
   ],
   documents: [
-    // {
-    //   name: "Investments",
-    //   url: "/investments",
-    //   icon: Banknote,
-    // },
+    {
+      name: "Safe",
+      url: "/safe",
+      icon: FaLock,
+    },
 
     // {
     //   name: "KYC",
@@ -260,6 +262,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        {/* @ts-ignore */}
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
