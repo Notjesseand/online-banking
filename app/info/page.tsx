@@ -130,43 +130,39 @@ export default function HowItWorksPage() {
                     </CardContent>
                   </Card>
 
-                  {/* Invest Section */}
+                  {/* Save Section */}
                   <Card className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border-none shadow-md">
                     <CardHeader>
                       <CardTitle className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                        How to Invest
+                        How to Save in the Annual Safe
                       </CardTitle>
                       <CardDescription className="text-sm text-muted-foreground">
-                        Discover how to allocate funds to investment
-                        opportunities.
+                        Secure your money in the Annual Safe and earn a 17%
+                        interest per annum which will be compounded.
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col md:flex-row gap-4">
                       <div className="flex-1">
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          1. To invest with your deposit, navigate to the
-                          <strong> Portfolio Managers</strong>,{" "}
-                          <strong>AI Trading</strong> or{" "}
-                          <strong>Trades </strong>
-                          pages from the sidebar.
+                          1. To save with your deposit, navigate to the{" "}
+                          <strong>Safe</strong> page from the sidebar.
                           <br />
-                          2. Browse available investment plans or portfolios.
+                          2. Review the saving details (e.g., lock period,
+                          interest rate).
                           <br />
-                          3. Select a plan and review its details (e.g.,
-                          expected returns, risk level).
+                          3. Enter the amount you wish to save from your wallet
+                          balance.
                           <br />
-                          4. Enter the amount you wish to invest from your
-                          wallet balance.
-                          <br />
-                          5. Confirm the investment and track its performance in
+                          4. Confirm the saving and track your balance growth in
                           the dashboard.
+                          <br />
                         </p>
                       </div>
                       <div className="flex-1">
                         <img
-                          src="/info/invest.png"
-                          alt="Investment process"
-                          className=" rounded-lg w-2/3 mx-auto"
+                          src="/info/save.png"
+                          alt="Saving process"
+                          className="rounded-lg w-2/3 mx-auto"
                           onError={(e) => {
                             e.currentTarget.src = "/fallback.jpeg";
                           }}
@@ -218,9 +214,9 @@ export default function HowItWorksPage() {
                         Referrals
                       </CardTitle>
                       <CardDescription className="text-sm text-muted-foreground">
-                        Refer our platfrom to your friends and family and earn
-                        10% of their investments when they join via your
-                        referral link or use your code to sign up.
+                        Refer our platform to your friends and family and earn
+                        10% of their savings in the Annual Safe when they join
+                        via your referral link or use your code to sign up.
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col md:flex-row gap-4">
@@ -229,18 +225,19 @@ export default function HowItWorksPage() {
                           1. Access the <strong>Referrals</strong> page via the
                           sidebar.
                           <br />
-                          2. Copy your referral link and share to your friends.
+                          2. Copy your referral link and share it with your
+                          friends.
                           <br />
                           3. Check back on the referral page from time to time
                           to claim your rewards when you earn up to $1000 from
-                          referrals.
+                          referred savings.
                           <br />
                         </p>
                       </div>
                       <div className="flex-1">
                         <img
                           src="/info/referrals.png"
-                          alt="Trading process"
+                          alt="Referral process for saving"
                           className="rounded-lg w-3/4 flex mx-auto"
                           onError={(e) => {
                             e.currentTarget.src = "/fallback.jpeg";

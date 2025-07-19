@@ -190,11 +190,11 @@ const data = {
       url: "/history",
       icon: History,
     },
-    // {
-    //   name: "Referrals",
-    //   url: "/referrals",
-    //   icon: UsersRound,
-    // },
+    {
+      name: "Referrals",
+      url: "/referrals",
+      icon: UsersRound,
+    },
     // {
     //   name: "Withdrawals",
     //   url: "/withdrawals",
