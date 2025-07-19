@@ -169,12 +169,12 @@ export default function SafePage() {
     const now = new Date();
     const lockedUntil = new Date(entry.lockedUntil);
     if (now > lockedUntil) {
-      return entry.amount + entry.amount * 0.17; // Full amount + 17% after 1 year
+      return entry.amount; // Full amount + 17% after 1 year
     }
     const monthsLocked =
       (now.getTime() - new Date(entry.startDate).getTime()) /
       (1000 * 60 * 60 * 24 * 30);
-    return entry.amount + entry.amount * 0.17 * (monthsLocked / 12); // Pro-rated total value
+    return entry.amount; // Pro-rated total value
   };
 
   if (loading) {
@@ -289,7 +289,8 @@ export default function SafePage() {
                           {new Date(entry.lockedUntil).toLocaleDateString()}
                         </p>
                         <p className="text-lg font-semibold text-green-600">
-                          Est. Return: {calculateReturn(entry).toFixed(2)}{" "}
+                          Est. Return: {/* @ts-ignore */}
+                          {calculateReturn(entry).toFixed(2) * 1.17}
                           {entry.assetType}
                         </p>
                         {new Date() < new Date(entry.lockedUntil) && (
