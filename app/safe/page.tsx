@@ -192,7 +192,7 @@ export default function SafePage() {
         <AppSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <div className="flex flex-1 flex-col items-center justify-center min-h-screen font-montserrat z-50 px-6">
+          <div className="flex flex-1 flex-col items-center justify-center min-h-screen font-montserrat z-50 px-6 pt-10">
             <motion.div
               className="w-full max-w-4xl"
               initial={{ opacity: 0, y: 20 }}
