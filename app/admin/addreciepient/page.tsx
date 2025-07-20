@@ -316,7 +316,7 @@ export default function AdminPage() {
               <Button onClick={handleAddRecipient} className="mt-4">
                 Add Recipient
               </Button>
-              <div className="text-center text-sm pt-6">
+              <div className="text-center text-xs pt-6">
                 <p className="">generate recipients</p>
                 <PopulateRecipients />
               </div>
@@ -329,7 +329,7 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto mt-4">
-                <table className="min-w-[600px] text-sm border w-full">
+                <table className="min-w-[600px] text-xs border w-full ">
                   <thead>
                     <tr>
                       {["ID", "Name", "Account Number", "ID Number"].map(

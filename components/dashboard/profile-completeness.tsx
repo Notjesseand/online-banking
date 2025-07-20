@@ -203,12 +203,12 @@ export const ProfileCompleteness = ({ userId, isAdminView = false }: Props) => {
         {profileItems.map((item) => (
           <li
             key={item.key}
-            className="flex items-center justify-center h-16 sm:h-20 lg:h-24 w-full rounded-lg text-center"
+            className="flex items-center justify-center text-sm h-16 sm:h-20 lg:h-24 w-full rounded-lg text-center"
             style={{ backgroundColor: item.color }}
           >
             <span
               className={cn(
-                "flex items-center gap-1 sm:gap-2 text-center justify-center text-xs sm:text-sm lg:text-base",
+                "flex items-center gap-1 sm:gap-2 text-center justify-center text-sm lg:text-xs",
                 item.label === "Bank Account Linked" && "text-black"
               )}
             >
