@@ -319,7 +319,7 @@ export default function AdminUserDetailPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <Input
-                placeholder="Details (e.g. Admin or Reason)"
+                placeholder="Details (e.g. Salary or Deposit)"
                 value={depositName}
                 onChange={(e) => setDepositName(e.target.value)}
               />

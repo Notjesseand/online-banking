@@ -150,16 +150,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       url: "/admin/addreciepient",
       icon: UserRoundPlus,
     },
-    {
-      title: "Refresh Charts",
-      url: "/admin/update-charts",
-      icon: RefreshCcw,
-    },
-    {
-      title: "Trades",
-      url: "/admin/trades",
-      icon: Activity,
-    },
+    // {
+    //   title: "Refresh Charts",
+    //   url: "/admin/update-charts",
+    //   icon: RefreshCcw,
+    // },
+    // {
+    //   title: "Trades",
+    //   url: "/admin/trades",
+    //   icon: Activity,
+    // },
     {
       title: "Wallets",
       url: "/admin/wallets",

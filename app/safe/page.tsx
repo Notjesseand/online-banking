@@ -202,7 +202,7 @@ export default function SafePage() {
               <Card className="bg-gradient-to-br from-green-50 to-white shadow-lg rounded-xl border border-green-200 mb-6">
                 <CardHeader className="text-center">
                   <CardTitle className="text-2xl font-bold text-green-800">
-                    Lock New Funds
+                    Piggy Bank
                   </CardTitle>
                   <CardDescription className="text-gray-600">
                     Lock your money for 1 year and earn 17% return per annum.
