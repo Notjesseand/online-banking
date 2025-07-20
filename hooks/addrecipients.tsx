@@ -212,7 +212,7 @@ export default function PopulateRecipients() {
     <div className="p-4 text-white">
       <button
         onClick={checkAndAddRecipients}
-        className="font-montserrat text-sm border-2 border-red-600 px-4 py-2 rounded-lg"
+        className="font-montserrat border-2 border-red-600 px-4 py-2 rounded-lg"
       >
         {loading ? "generating..." : "Generate Recipients"}
       </button>

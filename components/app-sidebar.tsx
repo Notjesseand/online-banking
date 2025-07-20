@@ -181,7 +181,7 @@ const data = {
     //   icon: ShieldCheck,
     // },
     {
-      name: "notifications",
+      name: "support",
       url: "/messages",
       icon: MessageCircle,
     },
